@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         deleteButton.setOnClickListener {
             if (names.isNotEmpty() && spinner.selectedItemPosition != -1) {
                 (names as MutableList<String>).removeAt(spinner.selectedItemPosition)
-
+                (spinner.adapter as CustomAdapter).notifyDataSetChanged()
                 if (names.isNotEmpty()) {
                     spinner.setSelection(0)
                 } else {

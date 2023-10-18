@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         names = mutableListOf("Kevin Shaply", "Stacey Lou", "Gerard Clear", "Michael Studdard", "Michelle Studdard")
-
+        val deleteButton = findViewById<Button>(R.id.deleteButton)
         val spinner = findViewById<Spinner>(R.id.spinner)
         val nameTextView = findViewById<TextView>(R.id.textView)
 
@@ -35,10 +35,16 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        deleteButton.setOnClickListener {
+            if (names.isNotEmpty() && spinner.selectedItemPosition != -1) {
+                (names as MutableList<String>).removeAt(spinner.selectedItemPosition)
 
-        findViewById<View>(R.id.deleteButton).setOnClickListener {
-            (names as MutableList).removeAt(spinner.selectedItemPosition)
-            (spinner.adapter as BaseAdapter).notifyDataSetChanged()
+                if (names.isNotEmpty()) {
+                    spinner.setSelection(0)
+                } else {
+                    nameTextView.text = ""
+                }
+            }
         }
 
     }
